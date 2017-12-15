@@ -9,9 +9,9 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Adrian Castillo"]
   spec.email         = ["rodacato@gmail.com"]
 
-  spec.summary       = %q{TODO: Write a short summary, because RubyGems requires one.}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.summary       = %q{Another gem REPL to manage your bitso account}
+  spec.description   = %q{Another gem REPL to manage your bitso account}
+  spec.homepage      = "https://github.com/rodacato/bits_dealer"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
@@ -23,12 +23,14 @@ Gem::Specification.new do |spec|
       "public gem pushes."
   end
 
-  spec.files         = `git ls-files -z`.split("\x0").reject do |f|
-    f.match(%r{^(test|spec|features)/})
-  end
+  spec.files         = `git ls-files`.split($\)
   spec.bindir        = "exe"
-  spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
+  spec.executables   = ["bits_dealer"]
   spec.require_paths = ["lib"]
+
+  spec.add_dependency 'bitsor'
+  spec.add_dependency 'rainbow'
+  spec.add_dependency 'terminal-table'
 
   spec.add_development_dependency "bundler", "~> 1.16"
   spec.add_development_dependency "rake", "~> 10.0"

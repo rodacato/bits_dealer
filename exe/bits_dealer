@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+
+require "bits_dealer"
+
+BitsDealer::CLI.new(ARGV).run

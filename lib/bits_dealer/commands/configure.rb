@@ -5,15 +5,15 @@ module BitsDealer
         display "BitsDealer is already configured", :green
       end
 
-      client_id = Readline.readline("What is your cliend id?\n> ", true)
-      api_key = Readline.readline("What is your api key?\n> ", true)
-      api_secret = Readline.readline("What is your api secret?\n> ", true)
+      client_id = buzz("What is your cliend id?")
+      api_key = buzz("What is your api key?")
+      api_secret = buzz("What is your api secret?")
       password = nil
       password_input = 0
 
       loop do
-        password = Readline.readline("\nSet a password when start BitsDealer:\n> ", true)
-        password_confirmation = Readline.readline("\nconfirm your password:\n> ", true)
+        password = buzz("Set a password when start BitsDealer:")
+        password_confirmation = buzz("confirm your password:")
 
         if password == password_confirmation
           break
@@ -34,7 +34,7 @@ module BitsDealer
     end
 
     def reset
-      confirm = Readline.readline("Are you sure you want to delete your configuration files?[Yn]\n> ", true)
+      confirm = buzz("Are you sure you want to delete your configuration files?[Yn]")
 
       if confirm.downcase == 'y' || confirm.downcase == 'yes'
         BitsDealer::Config.reset

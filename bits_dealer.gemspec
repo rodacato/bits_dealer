@@ -29,8 +29,8 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency 'bitsor'
-  spec.add_dependency 'rainbow'
   spec.add_dependency 'terminal-table'
+  spec.add_dependency 'highline'
 
   spec.add_development_dependency "bundler", "~> 1.16"
   spec.add_development_dependency "rake", "~> 10.0"

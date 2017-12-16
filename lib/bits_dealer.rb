@@ -1,12 +1,10 @@
 require "optparse"
-require "readline"
 require "json"
-
 require "pry"
 
 require 'bitsor'
+require "highline/import"
 require 'terminal-table'
-require 'rainbow'
 
 require 'ext/string'
 require 'ext/hash'

@@ -1,34 +1,26 @@
+require "bits_dealer/commands/balance"
 require "bits_dealer/commands/configure"
+require "bits_dealer/commands/help"
 
 module BitsDealer
   class REPL
+    include BitsDealer::Balance
     include BitsDealer::Configure
-
-    COMMAND_LIST = [
-      'help', 'configure', 'exit', 'quit', 'reset',
-    ].sort
+    include BitsDealer::Help
 
     def initialize(options={})
       @options = options
-
-      Readline.completion_append_character = " "
-      Readline.completion_proc = proc { |s| COMMAND_LIST.grep(/^#{Regexp.escape(s)}/) }
     end
 
     def start
+      ensure_configuration
+
       display "Hello there! ready to rock in bitso."
 
-      if BitsDealer::Config.needs_configuration?
-        display "\nIMPORTANT!!!\nBitsDealer is not configured, to start using it type 'configure'\n", :red
-      else
-        password = Readline.readline("\nConfiguration detected, input your password to load it:\n> ", true)
-        @config = Config.new(password)
-      end
-
-      while command = Readline.readline("> ", true)
+      while command = ask("> ")
         case command
-        when "help"
-          display "Soon, I will have help for you."
+        when "help", '?'
+          help
         when "exit", "quit"
           break
         else
@@ -58,14 +50,34 @@ module BitsDealer
       end
     end
 
+    private
+
+    def ensure_configuration
+      if BitsDealer::Config.needs_configuration?
+        display "\nIMPORTANT!!!\nBitsDealer is not configured, to start using it type 'configure'\n", :red
+      else
+        password = buzz("Configuration detected, input your password to load it:", show_input: false)
+        @config = Config.new(password)
+        display "Configuration loaded.\n\n", :green
+      end
+    end
+
     def display(message, *args)
-      formatted_message = Rainbow(message)
+      formatted_message = message
 
       args.each do |key|
-        formatted_message = formatted_message.send key
+        formatted_message = "<%= color('#{formatted_message}', #{key.upcase}) %>"
       end
 
-      puts formatted_message
+      say formatted_message
+    end
+
+    def buzz(message, prompt: true, show_input: true)
+      message = "\n#{message}\n<%= color('> ', BOLD) %>" if prompt
+
+      ask(message) do |q| 
+        q.echo = show_input
+      end
     end
   end
 end

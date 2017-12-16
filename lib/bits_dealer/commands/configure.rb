@@ -2,44 +2,50 @@ module BitsDealer
   module Configure
     def configure
       if !BitsDealer::Config.needs_configuration?
-        display "BitsDealer is already configured", :green
+        prompt.say "BitsDealer is already configured"
       end
 
-      client_id = buzz("What is your cliend id?")
-      api_key = buzz("What is your api key?")
-      api_secret = buzz("What is your api secret?")
+      client_id = prompt.ask("What is your cliend id?")
+      api_key = prompt.ask("What is your api key?")
+      api_secret = prompt.ask("What is your api secret?")
       password = nil
       password_input = 0
 
       loop do
-        password = buzz("Set a password when start BitsDealer:")
-        password_confirmation = buzz("confirm your password:")
+        password = prompt.mask("\nSet a password for your configuration: ")
+        password_confirmation = prompt.mask("confirm your password: ")
 
         if password == password_confirmation
           break
         else
           password_input += 1
-          display "Your password didnt match, please try it again", :red
+          prompt.error "Your password didnt match, please try it again"
         end
 
         if password_input == 3
-          display "Configuration failed, try again!!!", :red
+          prompt.warn "Configuration failed, try again!!!"
           break
         end
       end
 
       @config = BitsDealer::Config.create({ client_id: client_id, api_key: api_key, api_secret: api_secret, password: password })
 
-      display 'You have configured BitsDealer.', :green
+      prompt.ok 'You have configured BitsDealer.'
+
+      nil
     end
 
     def reset
-      confirm = buzz("Are you sure you want to delete your configuration files?[Yn]")
-
-      if confirm.downcase == 'y' || confirm.downcase == 'yes'
-        BitsDealer::Config.reset
-        display "Configuration removed.", :green
+      confirm = prompt.yes?("Are you sure you want to delete your configuration?") do |q|
+        q.default false
       end
+
+      if confirm
+        BitsDealer::Config.reset
+        prompt.ok "Configuration removed."
+      end
+
+      nil
     end
   end
 end

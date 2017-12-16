@@ -2,6 +2,8 @@ require "bits_dealer/commands/balance"
 require "bits_dealer/commands/configure"
 require "bits_dealer/commands/help"
 
+require 'readline'
+
 module BitsDealer
   class REPL
     include BitsDealer::Balance
@@ -15,9 +17,9 @@ module BitsDealer
     def start
       ensure_configuration
 
-      display "Hello there! ready to rock in bitso."
+      prompt.say "Hello there! ready to rock in bitso."
 
-      while command = ask("> ")
+      while command = Readline.readline("> ")
         case command
         when "help", '?'
           help
@@ -28,55 +30,46 @@ module BitsDealer
         end
       end
 
-      display "Goodbye, I hope you made money!\n"
+      prompt.say "Goodbye, I hope you made money!\n"
     end
 
     def process(command)
       begin
         result = eval(command)
-        display "=> #{result}"
+        prompt.say "=> #{result}\n" if result
       rescue SyntaxError => e
         @last_error = e
-        display "Oops, seems to have been some error."
+        prompt.warn "Oops, seems to have been some error."
       rescue NameError => e
         @last_error = e
-        display "Oops, you tried to use a method or variable that doesn't exist."
+        prompt.warn "Oops, you tried to use a method or variable that doesn't exist."
       rescue ArgumentError => e
         @last_error = e
-        display "Oops, you tried to use a method without the right parameters."
+        prompt.warn "Oops, you tried to use a method without the right parameters."
       rescue => e
         @last_error = e
-        display "Opps, didnt worked, something bad happened."
+        prompt.warn "Opps, didnt worked, something bad happened."
       end
     end
 
     private
 
+    def prompt
+      @prompt ||= ::TTY::Prompt.new(enable_color: true, prefix: '> ', track_history: true)
+    end
+
+    def nothing
+      prompt.say 'Alright!'
+    end
+
     def ensure_configuration
       if BitsDealer::Config.needs_configuration?
-        display "\nIMPORTANT!!!\nBitsDealer is not configured, to start using it type 'configure'\n", :red
+        prompt.error("\nIMPORTANT!!!\nBitsDealer is not configured, to start using it type 'configure'\n")
       else
-        password = buzz("Configuration detected, input your password to load it:", show_input: false)
+        prompt.warn("Hey, we found some configuration files")
+        password = prompt.mask("Please input your password to load them: ")
         @config = Config.new(password)
-        display "Configuration loaded.\n\n", :green
-      end
-    end
-
-    def display(message, *args)
-      formatted_message = message
-
-      args.each do |key|
-        formatted_message = "<%= color('#{formatted_message}', #{key.upcase}) %>"
-      end
-
-      say formatted_message
-    end
-
-    def buzz(message, prompt: true, show_input: true)
-      message = "\n#{message}\n<%= color('> ', BOLD) %>" if prompt
-
-      ask(message) do |q| 
-        q.echo = show_input
+        prompt.ok("Configuration loaded.\n")
       end
     end
   end

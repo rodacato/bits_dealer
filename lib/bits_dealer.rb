@@ -3,7 +3,7 @@ require "json"
 require "pry"
 
 require 'bitsor'
-require "highline/import"
+require "tty-prompt"
 require 'terminal-table'
 
 require 'ext/string'

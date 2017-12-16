@@ -1,11 +1,14 @@
 module BitsDealer
   module Help
     def help
-      choose do |menu|
-        menu.prompt = "<%= color('>', BOLD) %> What do you want to do?  "
-        menu.choice(:balance) { balance }
-        menu.choices(:configure) { configure }
+      option = prompt.select("Choose what you want to do?") do |menu|
+        menu.choice 'Check balances', 'balance'
+        menu.choice 'Nevermind', 'nothing'
       end
+
+      process(option)
+
+      nil
     end
   end
 end

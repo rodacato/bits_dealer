@@ -5,6 +5,8 @@ require "pry"
 require 'bitsor'
 require "tty-prompt"
 require 'terminal-table'
+require 'parallel'
+require 'retries'
 
 require 'ext/string'
 require 'ext/hash'

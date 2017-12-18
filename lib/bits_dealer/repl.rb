@@ -1,6 +1,8 @@
 require "bits_dealer/commands/balance"
 require "bits_dealer/commands/configure"
 require "bits_dealer/commands/help"
+require "bits_dealer/commands/list_books"
+require "bits_dealer/commands/list_tickers"
 
 require 'readline'
 
@@ -9,6 +11,8 @@ module BitsDealer
     include BitsDealer::Balance
     include BitsDealer::Configure
     include BitsDealer::Help
+    include BitsDealer::ListBooks
+    include BitsDealer::ListTickers
 
     def initialize(options={})
       @options = options
@@ -56,6 +60,10 @@ module BitsDealer
 
     def prompt
       @prompt ||= ::TTY::Prompt.new(enable_color: true, prefix: '> ', track_history: true)
+    end
+
+    def formatter
+      @formatter ||= Pastel.new
     end
 
     def nothing

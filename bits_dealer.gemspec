@@ -28,9 +28,11 @@ Gem::Specification.new do |spec|
   spec.executables   = ["bits_dealer"]
   spec.require_paths = ["lib"]
 
-  spec.add_dependency 'bitsor'
+  spec.add_dependency 'bitsor', "~> 0.1.1"
+  spec.add_dependency 'parallel'
   spec.add_dependency 'terminal-table'
   spec.add_dependency 'tty-prompt'
+  spec.add_dependency 'retries'
 
   spec.add_development_dependency "bundler", "~> 1.16"
   spec.add_development_dependency "rake", "~> 10.0"

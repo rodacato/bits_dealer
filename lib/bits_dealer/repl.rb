@@ -3,6 +3,7 @@ require "bits_dealer/commands/configure"
 require "bits_dealer/commands/help"
 require "bits_dealer/commands/list_books"
 require "bits_dealer/commands/list_tickers"
+require "bits_dealer/commands/open_orders"
 
 require 'readline'
 
@@ -13,6 +14,7 @@ module BitsDealer
     include BitsDealer::Help
     include BitsDealer::ListBooks
     include BitsDealer::ListTickers
+    include BitsDealer::OpenOrders
 
     def initialize(options={})
       @options = options

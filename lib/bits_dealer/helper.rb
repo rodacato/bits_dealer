@@ -19,6 +19,18 @@ module BitsDealer
       end
     end
 
+    def ask_order(orders)
+      book = prompt.select("Choose the order?") do |menu|
+        menu.enum '.'
+
+        orders.each do |order|
+          side_formatted = order[:side] == 'buy' ? formatter.green(order[:side]) : formatter.red(order[:side])
+          help_text = formatter.magenta("(#{order[:original_value]})")
+          menu.choice "#{side_formatted} #{order[:original_amount]} at #{order[:price]} #{help_text}", order
+        end
+      end
+    end
+
     def print_tickers_table(tickers)
       tickers_formatted = tickers.sort{|a, b| a[:book] <=> b[:book] }.each_with_object({}){ |element, hsh| hsh[element[:book]] = element; hsh }
 

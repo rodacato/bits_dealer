@@ -6,10 +6,9 @@ module BitsDealer
         menu.choice 'Nevermind', 'nothing'
 
         menu.choice 'Cancel order', 'cancel_order'
-        menu.choice 'Check balances', 'balance'
-        menu.choice 'List tickets', 'tickers'
         menu.choice 'Buy order', 'buy_order'
         menu.choice 'Sell order', 'sell_order'
+        menu.choice 'Exchange order', 'exchange_order'
       end
 
       process(option)

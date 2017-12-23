@@ -7,6 +7,8 @@ require "tty-prompt"
 require 'terminal-table'
 require 'parallel'
 require 'retries'
+require 'sqlite3'
+require 'sequel'
 
 require 'ext/string'
 require 'ext/hash'

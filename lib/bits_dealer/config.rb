@@ -1,8 +1,11 @@
-require 'yaml'
 require 'fileutils'
+require 'sequel'
+require 'yaml'
 
 module BitsDealer
   class Config
+    attr_reader :credentials, :database
+
     def initialize(password)
       load_configurations(password)
       connect_to_bitso
@@ -24,8 +27,6 @@ module BitsDealer
 
     private
 
-    attr_reader :credentials
-
     def connect_to_bitso
       Bitsor.configure do |c|
         c.client_id = credentials[:client_id]
@@ -44,6 +45,10 @@ module BitsDealer
           api_secret: secrets[:api_secret].decrypt(password),
         }
       end
+
+      if File.exist?("#{Dir.home}/.bits_dealer/database.sqlite3")
+        @database = Sequel.sqlite("#{Dir.home}/.bits_dealer/database.sqlite3")
+      end
     end
 
     def self.create_secrets_file(values)
@@ -56,6 +61,10 @@ module BitsDealer
             }.to_yaml
           )
       end
+    end
+
+    def self.create_database
+      FileUtils.cp('lib/bits_dealer/templates/database.sqlite3', "#{Dir.home}/.bits_dealer/database.sqlite3")
     end
 
     def self.ensure_config_folder

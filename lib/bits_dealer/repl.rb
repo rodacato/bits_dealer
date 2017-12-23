@@ -7,6 +7,8 @@ require "bits_dealer/commands/new_order"
 require "bits_dealer/commands/open_orders"
 require "bits_dealer/commands/tickers"
 
+require "bits_dealer/helper"
+
 require 'readline'
 
 module BitsDealer
@@ -47,6 +49,8 @@ module BitsDealer
       begin
         result = eval(command)
         prompt.say "=> #{result}\n" if result
+      rescue TTY::Reader::InputInterrupt => e
+        prompt.warn "\nGot it, lets do something else."
       rescue SyntaxError => e
         @last_error = e
         prompt.warn "Oops, seems to have been some error."
@@ -65,11 +69,15 @@ module BitsDealer
     private
 
     def prompt
-      @prompt ||= ::TTY::Prompt.new(enable_color: true, prefix: '> ', track_history: true)
+      @prompt ||= ::TTY::Prompt.new(enable_color: true, prefix: '> ', track_history: false)
     end
 
     def formatter
       @formatter ||= Pastel.new
+    end
+
+    def helper
+      @helper ||= BitsDealer::Helper.new(prompt: prompt, formatter: formatter)
     end
 
     def nothing

@@ -1,9 +1,8 @@
 module BitsDealer
   module OpenOrders
     def open_orders
-      orders = with_retries(:max_tries => 3) { Bitsor.open_orders(limit: 100) }
-
-      binding.pry
+      book = helper.ask_book
+      orders = with_retries(:max_tries => 3) { Bitsor.open_orders(book: book, limit: 100) }
 
       table = Terminal::Table.new(
         :headings => [:book, :side, :amount, :price, :currency_price, :unfilled],

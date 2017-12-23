@@ -5,20 +5,14 @@ module BitsDealer
     def new_order
       book_options = BitsDealer::Books::DEFAULT_BOOKS
 
-      book = prompt.select("Choose the book?") do |menu|
-        menu.enum '.'
-
-        book_options.each_pair do |key, value|
-          menu.choice key, value
-        end
-      end
+      book = helper.ask_book
 
       ticker = with_retries(:max_tries => 3) { Bitsor.ticker(book: book) }
       ticker_price = ticker[:bid] + 0.01
 
       minor = prompt.ask("How much MXN?", convert: :float, default: DEFAULT_ORDER_AMOUNT, help_color: :green)
 
-      print_tickers_table([ticker])
+      helper.print_tickers_table([ticker])
       price = prompt.ask("What price?", convert: :float, default: ticker_price, help_color: :green)
 
       begin

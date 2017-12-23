@@ -1,20 +1,20 @@
 require "bits_dealer/commands/balance"
+require "bits_dealer/commands/books"
 require "bits_dealer/commands/configure"
 require "bits_dealer/commands/help"
-require "bits_dealer/commands/list_books"
-require "bits_dealer/commands/list_tickers"
 require "bits_dealer/commands/open_orders"
+require "bits_dealer/commands/tickers"
 
 require 'readline'
 
 module BitsDealer
   class REPL
     include BitsDealer::Balance
+    include BitsDealer::Books
     include BitsDealer::Configure
     include BitsDealer::Help
-    include BitsDealer::ListBooks
-    include BitsDealer::ListTickers
     include BitsDealer::OpenOrders
+    include BitsDealer::Tickers
 
     def initialize(options={})
       @options = options

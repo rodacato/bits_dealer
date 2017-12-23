@@ -1,5 +1,5 @@
 module BitsDealer
-  module ListBooks
+  module Books
     DEFAULT_BOOKS = {
       bitcoin: "btc_mxn",
       etherium: "eth_mxn", 
@@ -8,7 +8,7 @@ module BitsDealer
       ripple_bitcoin: "xrp_btc",
     }
 
-    def list_books
+    def books
       table = Terminal::Table.new(
         :headings => [:name, :book],
         :rows => DEFAULT_BOOKS.map{|key, value| [key, value] }

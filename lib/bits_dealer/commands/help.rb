@@ -2,9 +2,11 @@ module BitsDealer
   module Help
     def help
       option = prompt.select("Choose what you want to do?") do |menu|
+        menu.choice 'Cancel order', 'cancel_order'
         menu.choice 'Check balances', 'balance'
-        menu.choice 'List tickets', 'list_tickers'
-        menu.choice 'List books', 'list_books'
+        menu.choice 'List books', 'books'
+        menu.choice 'List tickets', 'tickers'
+        menu.choice 'New order', 'new_order'
         menu.choice 'Nevermind', 'nothing'
       end
 

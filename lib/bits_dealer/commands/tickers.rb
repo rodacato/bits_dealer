@@ -2,8 +2,8 @@ require 'parallel'
 require 'retries'
 
 module BitsDealer
-  module ListTickers
-    def list_tickers
+  module Tickers
+    def tickers
       books = BitsDealer::ListBooks::DEFAULT_BOOKS.values
       tickers = Parallel.map(books) do |book|
         with_retries(:max_tries => 3) { Bitsor.ticker(book: book) }

@@ -7,19 +7,19 @@ module BitsDealer
       @formatter = formatter
     end
 
-    def ask_book
-      book_options = BitsDealer::Books::DEFAULT_BOOKS
+    def ask_book(books: nil)
+      book_options = books || BitsDealer::Books::PLACE_ORDER_BOOKS
 
       book = prompt.select("Choose the book?") do |menu|
         menu.enum '.'
 
-        book_options.each_pair do |key, value|
-          menu.choice key, value
+        book_options.each do |book|
+          menu.choice book.name, book
         end
       end
     end
 
-    def ask_order(orders)
+    def ask_order(orders:)
       book = prompt.select("Choose the order?") do |menu|
         menu.enum '.'
 
@@ -31,7 +31,7 @@ module BitsDealer
       end
     end
 
-    def print_tickers_table(tickers)
+    def print_tickers_table(tickers:)
       tickers_formatted = tickers.sort{|a, b| a[:book] <=> b[:book] }.each_with_object({}){ |element, hsh| hsh[element[:book]] = element; hsh }
 
       table = Terminal::Table.new(

@@ -8,7 +8,8 @@ module BitsDealer
         menu.choice 'Cancel order', 'cancel_order'
         menu.choice 'Check balances', 'balance'
         menu.choice 'List tickets', 'tickers'
-        menu.choice 'New order', 'new_order'
+        menu.choice 'Buy order', 'buy_order'
+        menu.choice 'Sell order', 'sell_order'
       end
 
       process(option)

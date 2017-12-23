@@ -29,6 +29,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency 'bitsor', "~> 0.1.2"
+  spec.add_dependency 'money'
   spec.add_dependency 'parallel'
   spec.add_dependency 'retries'
   spec.add_dependency 'sequel'

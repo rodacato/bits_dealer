@@ -3,8 +3,8 @@ module BitsDealer
     def cancel_order(oid: nil)
       unless oid
         book = helper.ask_book
-        orders = with_retries(:max_tries => 3) { Bitsor.open_orders(book: book, limit: 100) }
-        order = helper.ask_order(orders)
+        orders = with_retries(:max_tries => 3) { Bitsor.open_orders(book: book.id, limit: 100) }
+        order = helper.ask_order(orders: orders)
         oid = order[:oid]
       end
 

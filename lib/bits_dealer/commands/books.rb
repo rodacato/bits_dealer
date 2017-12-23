@@ -2,7 +2,7 @@ module BitsDealer
   module Books
     DEFAULT_BOOKS = {
       bitcoin: "btc_mxn",
-      etherium: "eth_mxn", 
+      etherium: "eth_mxn",
       etherium_bitcoin: "eth_btc",
       ripple: "xrp_mxn",
       ripple_bitcoin: "xrp_btc",

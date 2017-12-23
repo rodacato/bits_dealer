@@ -4,11 +4,19 @@ require 'retries'
 module BitsDealer
   module Tickers
     def tickers
-      books = BitsDealer::ListBooks::DEFAULT_BOOKS.values
+      books = BitsDealer::Books::DEFAULT_BOOKS.values
       tickers = Parallel.map(books) do |book|
         with_retries(:max_tries => 3) { Bitsor.ticker(book: book) }
       end
 
+      print_tickers_table(tickers)
+
+      nil
+    end
+
+    private
+
+    def print_tickers_table(tickers)
       tickers_formatted = tickers.sort{|a, b| a[:book] <=> b[:book] }.each_with_object({}){ |element, hsh| hsh[element[:book]] = element; hsh }
 
       table = Terminal::Table.new(
@@ -27,8 +35,6 @@ module BitsDealer
       )
 
       prompt.say table
-
-      nil
     end
   end
 end

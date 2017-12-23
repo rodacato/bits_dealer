@@ -1,7 +1,9 @@
 require "bits_dealer/commands/balance"
 require "bits_dealer/commands/books"
+require "bits_dealer/commands/cancel_order"
 require "bits_dealer/commands/configure"
 require "bits_dealer/commands/help"
+require "bits_dealer/commands/new_order"
 require "bits_dealer/commands/open_orders"
 require "bits_dealer/commands/tickers"
 
@@ -11,8 +13,10 @@ module BitsDealer
   class REPL
     include BitsDealer::Balance
     include BitsDealer::Books
+    include BitsDealer::CancelOrder
     include BitsDealer::Configure
     include BitsDealer::Help
+    include BitsDealer::NewOrder
     include BitsDealer::OpenOrders
     include BitsDealer::Tickers
 

@@ -6,6 +6,7 @@ require "bits_dealer/commands/help"
 require "bits_dealer/commands/new_order"
 require "bits_dealer/commands/open_orders"
 require "bits_dealer/commands/tickers"
+require "bits_dealer/commands/monitor"
 
 require "bits_dealer/helper"
 
@@ -21,6 +22,8 @@ module BitsDealer
     include BitsDealer::NewOrder
     include BitsDealer::OpenOrders
     include BitsDealer::Tickers
+
+    include BitsDealer::Monitor
 
     def initialize(options={})
       @options = options

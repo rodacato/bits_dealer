@@ -1,7 +1,6 @@
 # BitsDealer
 
-BitsDealer is a command line interface that helps you to manage your bitso account, like buy coins, sell them, check ticks or your orders,
-it makes use of [Bitsor](https://github.com/rodacato/bitsor) gem, a Bitso V3 API.
+BitsDealer is a command line interface that helps you to manage your bitso account, like buy coins, sell them, check ticks or your orders, it makes use of [Bitsor](https://github.com/rodacato/bitsor) gem, a Bitso V3 API.
 
 ## Installation
 
@@ -13,8 +12,7 @@ gem install bits_dealer
 
 Once you install the gem, run the command `bits_dealer` to setup you account, you will need your client_id aswell as the API keys.
 
-The configuration steps will ask you for a password to encrypt all you information on your home folder, and ask you again each time you open
-the terminal, all this for security reasons.
+The configuration steps will ask you for a password to encrypt all you information on your home folder, and ask you again each time you open the terminal, all this for security reasons.
 
 ## Usage
 
@@ -31,7 +29,16 @@ help / ?
 exit / quit
 ```
 
-You can call them manually from the console after execute `bits_dealer` or through the help menu.
+You can call them manually from the console after execute `bits_dealer` or through the help menu. Ex
+
+Help menu:
+![help menu](https://user-images.githubusercontent.com/232752/34596751-dd8310f2-f1a7-11e7-8870-b56ecb66f982.png)
+
+Place an order:
+![place an order](https://user-images.githubusercontent.com/232752/34596752-dda677f4-f1a7-11e7-8eea-f30c0d9e44fc.png)
+
+List tickers:
+![list tickers](https://user-images.githubusercontent.com/232752/34596753-ddc4aac6-f1a7-11e7-8236-523190707df4.png)
 
 ### Tips
 

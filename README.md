@@ -1,38 +1,55 @@
 # BitsDealer
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/bits_dealer`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+BitsDealer is a command line interface that helps you to manage your bitso account, like buy coins, sell them, check ticks or your orders,
+it makes use of [Bitsor](https://github.com/rodacato/bitsor) gem, a Bitso V3 API.
 
 ## Installation
 
-Add this line to your application's Gemfile:
+Simply run the following command to install it on your current ruby version (2.4.2 is recommended)
 
 ```ruby
-gem 'bits_dealer'
+gem install bits_dealer
 ```
 
-And then execute:
+Once you install the gem, run the command `bits_dealer` to setup you account, you will need your client_id aswell as the API keys.
 
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install bits_dealer
+The configuration steps will ask you for a password to encrypt all you information on your home folder, and ask you again each time you open
+the terminal, all this for security reasons.
 
 ## Usage
 
-TODO: Write usage instructions here
+BitsDealer support the following actions:
+
+```
+balance
+books
+cancel_order
+new_order
+open_order
+tickers
+help / ?
+exit / quit
+```
+
+You can call them manually from the console after execute `bits_dealer` or through the help menu.
+
+### Tips
+
+Type `?` to access the quick menu
+
+Type `quit` or `exit` to close the session
+
+If you dont want to perform the command you can cancel it with `CTRL + c`.
 
 ## Development
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+After checking out the repo, run rake install to intall this gem locally,
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+then open it from the executables folder `exe/bits_dealer`
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/bits_dealer.
+Bug reports and pull requests are welcome on GitHub at https://github.com/rodacato/bits_dealer.
 
 ## License
 

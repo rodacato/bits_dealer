@@ -27,8 +27,8 @@ module BitsDealer
           tickers = Parallel.map(books) do |book|
             with_retries(:max_tries => 3) { Bitsor.ticker(book: book.id) }
           end
-          @monitor_data.tickers = [{ created_at: Time.now.to_i, data: tickers }] + @monitor_data.tickers[0..19]
-          sleep 20
+          @monitor_data.tickers = [{ created_at: Time.now.to_i, data: tickers }] + @monitor_data.tickers[0..99]
+          sleep 15
         end
       end
     end
